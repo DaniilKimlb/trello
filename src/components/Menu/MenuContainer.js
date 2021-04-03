@@ -1,16 +1,17 @@
 import Menu from "./Menu";
 import {connect} from "react-redux";
-import {createBoard, changeText} from '../../redux/BoardReducer'
+import boardReducer, {createBoard, changeText} from '../../redux/BoardReducer'
 
-function MenuContainer({board, createBoard, text, changeText}) {
-    return <Menu createBoard={createBoard} board={board} text = {text} changeText={changeText}/>
+
+
+function MenuContainer({...props}) {
+    return <Menu {...props}/>
 }
-
 
 function mapStateToProps(state) {
     return {
-        board: state.rootReducer.board,
-        text: state.rootReducer.currentText
+        board: state.board,
+        text: state.currentText
     }
 }
 
