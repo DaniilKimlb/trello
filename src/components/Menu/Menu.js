@@ -1,17 +1,19 @@
 import s from './Menu.module.css'
 import {useState} from "react";
 import React from "react";
+import {NavLink} from "react-router-dom";
 
 
-function Menu({board, createBoard, text, changeText}) {
+function Menu({board, createBoard, text, changeText, handlerChange,}) {
     const [isCreatingBoard, setIsCreatingBoard] = useState(false)
     const [disable, setDisable] = useState(false)
 
-    function handlerClick() {
+    function handlerClick(e) {
         const title = text
         if (title.trim()) {
             createBoard({
-                title
+                title,
+                id: Date.now().toString()
             })
             CreatingBoardToFalse()
         } else {
@@ -19,24 +21,16 @@ function Menu({board, createBoard, text, changeText}) {
         }
     }
 
-    function handlerChange(e) {
-        const currentText = e.target.value
-        changeText(currentText)
-        if (e.isTrusted && !currentText.trim()) {
-            setDisable(true)
-        } else {
-            setDisable(false)
-        }
-    }
-    function handlerKeyDown(e){
+
+    function handlerKeyDown(e) {
         const {code} = e
-        if(code === 'Enter'){
+        if (code === 'Enter') {
             handlerClick()
-        }
-        else if(code ==='Escape'){
+        } else if (code === 'Escape') {
             CreatingBoardToFalse()
         }
     }
+
     function CreatingBoardToFalse() {
         setDisable(false)
         setIsCreatingBoard(false)
@@ -57,16 +51,18 @@ function Menu({board, createBoard, text, changeText}) {
                     </div>
                     <div className={s.field}>
                         <div className={s.input}>
-                            <input autoComplete="off" autoFocus={true} onChange={handlerChange}/>
+                            <input autoComplete="off" maxLength={20} autoFocus={true}
+                                   onChange={(e) => handlerChange(e, changeText, setDisable)}/>
                         </div>
                         {disable && <div className={s.error}>This field is required!</div>}
                         <div className={s.button}>
                             <button type="button" onClick={CreatingBoardToFalse}>Cancel</button>
-                            <button type="button"  onClick={handlerClick}>Create</button>
+                            <button type="button" onClick={handlerClick}>Create</button>
                         </div>
                     </div>
                 </div>}
-            {board.map((b, i) => <div className={s.board} key={i}>{b.title}</div>)}
+            {board.map((b, i) => <NavLink key={i} to={`/b/${b.id}`} onClick={CreatingBoardToFalse}
+                                          className={s.board}>{b.title}</NavLink>)}
 
         </div>
     )

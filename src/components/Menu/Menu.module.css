@@ -37,9 +37,14 @@
 }
 
 .board {
-    color: #000;
+
     background-color: #fff;
 
+}
+
+.menu a {
+    color: #000;
+    text-decoration: none;
 }
 
 .creating .title {
