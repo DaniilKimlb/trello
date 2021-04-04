@@ -20,7 +20,9 @@ body {
     justify-content: center;
     align-items: center;
 }
-
+.home a{
+    color: #000;
+}
 .home i {
     user-select: none;
     cursor: pointer;
