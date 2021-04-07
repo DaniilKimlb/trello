@@ -11,7 +11,7 @@ const persistConfig = {
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const persistedReducer = persistReducer(persistConfig, boardReducer)
-export default () => {
+export default function store () {
     let store = createStore(persistedReducer, composeEnhancers())
     let persistor = persistStore(store)
     return {store, persistor}

@@ -1,6 +1,6 @@
 import s from './Board.module.css'
 import React, {useState} from "react";
-import Todo from "../../redux/Todo/Todo";
+import Todo from "./Todo/Todo";
 
 export default function Board({
                                   board,
@@ -13,7 +13,12 @@ export default function Board({
                                   changeBoard,
                                   listen,
                                   setActive,
-                                  deleteTodo
+                                  deleteTodo,
+                                  setCurrentItem,
+                                  currentItems,
+                                  deleteElement,
+                                  setCurrentOrder,
+                                  currentOrder
                               }) {
     const [isAdding, setIsAdding] = useState(false)
     const [disable, setDisable] = useState(false)
@@ -51,7 +56,8 @@ export default function Board({
             <div className={s.trello}>
                 {list.map((t, i) => {
                         return <Todo t={t} listen={listen} setActive={setActive} changeListeners={changeListeners}
-                                     deleteTodo={deleteTodo} key ={i}/>
+                                     deleteTodo={deleteTodo} key ={i} setCurrentItem = {setCurrentItem} currentItems={currentItems} deleteElement={deleteElement} setCurrentOrders={setCurrentOrder}
+                                     currentOrder={currentOrder}/>
                     }
                 )
                 }

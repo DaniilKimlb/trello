@@ -135,6 +135,7 @@ input:active,  input:focus {
     text-align: center;
 }
 .tasks{
+    cursor:move;
     max-width: 205px;
     justify-content: space-between;
     display: flex;
@@ -156,6 +157,8 @@ input:active,  input:focus {
     color: #799985;
 }
 .tasksDel{
+    cursor:move;
+
     justify-content: space-between;
     display: flex;
     margin-bottom: 5px;
