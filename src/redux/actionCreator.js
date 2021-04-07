@@ -1,4 +1,13 @@
-import {ADD_LISTENERS, CHANGE_ID, CHANGE_TEXT, CREATE_BOARD, DELETE_TODO, SET_ACTIVE, SETTING_BOARD} from "./types";
+import {
+    ADD_LISTENERS,
+    CHANGE_ID,
+    CHANGE_TEXT,
+    CREATE_BOARD, DELETE_ELEMENT,
+    DELETE_TODO,
+    SET_ACTIVE,
+    SET_CURRENT_ITEMS,
+    SETTING_BOARD
+} from "./types";
 
 export const createBoard = (data) => ({
     type: CREATE_BOARD,
@@ -28,5 +37,13 @@ export const setActive = (data) => {
 }
 export  const  deleteTodo  = data =>({
     type: DELETE_TODO,
+    data
+})
+export const setCurrentItem = data =>({
+    type: SET_CURRENT_ITEMS,
+    data
+})
+export const deleteElement = data =>({
+    type: DELETE_ELEMENT,
     data
 })

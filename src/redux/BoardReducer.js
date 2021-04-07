@@ -1,4 +1,12 @@
-import {ADD_LISTENERS, CHANGE_ID, CHANGE_TEXT, CREATE_BOARD, DELETE_TODO, SET_ACTIVE, SETTING_BOARD} from "./types";
+import {
+    ADD_LISTENERS,
+    CHANGE_ID,
+    CHANGE_TEXT,
+    CREATE_BOARD, DELETE_ELEMENT,
+    DELETE_TODO,
+    SET_ACTIVE, SET_CURRENT_ITEMS,
+    SETTING_BOARD
+} from "./types";
 
 const initialState = {
     board: [],
@@ -6,10 +14,12 @@ const initialState = {
     currentId: '',
     setBoard: [],
     listen: {},
-    isActive: true
+    isActive: true,
+    currentItems: {},
 }
 
 export default function boardReducer(state = initialState, action) {
+    let index
     const val = state['listen'];
     switch (action.type) {
         case CREATE_BOARD:
@@ -39,9 +49,24 @@ export default function boardReducer(state = initialState, action) {
             }
         case DELETE_TODO:
             const pre = state['setBoard']
-            const deleteListenElement = val[action.data] = {tuck:[], value: ''}
+            const deleteListenElement = val[action.data] = {tuck: [], value: ''}
             const deleteSetBoard = pre.filter(el => el.index !== action.data)
             return {...state, setBoard: deleteSetBoard, listen: {...state.listen, ...deleteListenElement}}
+        case SET_CURRENT_ITEMS:
+            return {...state, currentItems: action.data}
+        case DELETE_ELEMENT:
+            index = action.data.index
+
+            return {
+                ...state, listen: {
+                    ...state.listen,
+                    [index]: {
+                        ...state.listen[index],
+                        tuck: state.listen[index].tuck.filter(arr => arr.id !== action.data.id),
+                        value: ''
+                    }
+                }
+            }
         default:
             return state
     }
